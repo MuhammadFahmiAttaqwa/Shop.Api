@@ -1,4 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Shop.Data;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var Configuration = builder.Configuration;
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+    x => x.MigrationsAssembly("Shop.Data")));
 
 
 builder.Services.AddControllers();
