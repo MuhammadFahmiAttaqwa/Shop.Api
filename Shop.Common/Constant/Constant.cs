@@ -14,7 +14,14 @@ namespace Shop.Common.Constant
 
         public const int MaxLength20 = 20;
 
-        public const int MaxLength = 256;
+        public const int MaxLength256 = 256;
 
+        public const int MaxLength500 = 500;
+
+        public const string DecimalType = "decimal(18,2)";
+
+        public const string RefreshTokenExpiry = "Jwt:RefreshTokenExpiryDays";
+
+        public const string AccessTokenExpiry = "AccessTokenExpiryMinutes";
     }
 }

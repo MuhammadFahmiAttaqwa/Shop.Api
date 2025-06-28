@@ -8,12 +8,13 @@ using Shop.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Shop.Data
 {
-    public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -76,43 +77,50 @@ namespace Shop.Data
         public DbSet<Tag> Tag { get; set; }
 
         public DbSet<WholePrice> WholePrice { get; set; }
+
+        public DbSet<IdentityUserRole<Guid>> UserRoles { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+        public DbSet<ExternalAuthToken> ExternalAuthTokens { get; set; }    
         #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims").HasKey(x => x.Id);
 
-            builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims")
-                .HasKey(x => x.Id);
+            builder.Ignore<IdentityUserClaim<Guid>>();
 
-            builder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
+            builder.Ignore<IdentityRoleClaim<Guid>>();
+
+            builder.Ignore<IdentityUserLogin<Guid>>();
 
             builder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles")
                 .HasKey(x => new { x.RoleId, x.UserId });
 
-            builder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens")
-               .HasKey(x => new { x.UserId });
+            builder.Ignore<IdentityUserToken<Guid>>();  
+
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        private void SaveDate()
-        {
-            var entries = ChangeTracker.Entries<IDate>().Where(x => x.State == EntityState.Added || x.State == EntityState.Modified);
+        //private void SaveDate()
+        //{
+        //    var entries = ChangeTracker.Entries<IDate>().Where(x => x.State == EntityState.Added || x.State == EntityState.Modified);
 
-            var date = DateTime.Now;
+        //    var date = DateTime.Now;
 
-            foreach (var entry in entries)
-            {
-                if (entry.State == EntityState.Added) entry.Entity.DateCreated = date;
+        //    foreach (var entry in entries)
+        //    {
+        //        if (entry.State == EntityState.Added) entry.Entity.DateCreated = date;
 
-                if (entry.State == EntityState.Modified) entry.Entity.DateUpdated = date;
-            }
-        }
+        //        if (entry.State == EntityState.Modified) entry.Entity.DateUpdated = date;
+        //    }
+        //}
+        
+        //public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        //{
+        //    SaveDate();
+        //    return await base.SaveChangesAsync(cancellationToken);
+        //}
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            SaveDate();
-            return await base.SaveChangesAsync(cancellationToken);
-        }
         public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
         {
             public AppDbContext CreateDbContext(string[] args)
@@ -132,5 +140,6 @@ namespace Shop.Data
                 return new AppDbContext(builder.Options);
             }
         }
+
     }
 }

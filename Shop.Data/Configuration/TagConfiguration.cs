@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace Shop.Data.Configuration
 {
-    public class AnnouncementUserConfiguration : IEntityTypeConfiguration<AnnouncementUser>
+    public class TagConfiguration : IEntityTypeConfiguration<Tag>
     {
-        public void Configure(EntityTypeBuilder<AnnouncementUser> builder)
+        public void Configure(EntityTypeBuilder<Tag> builder)
         {
             builder.HasKey(x => x.Id);
-            
-            builder.Property(x => x.AnnouncementId).HasMaxLength(Constant.MaxLength100);
+
+            builder.Property(x => x.Id).HasMaxLength(Constant.MaxLength20);
+
+            builder.Property(x => x.Name).HasMaxLength(Constant.MaxLength100);
+
+            builder.Property(x => x.Type).HasMaxLength(Constant.MaxLength100);
 
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
 
-            builder.HasOne(x => x.Announcement)
-                .WithMany(x => x.AnnouncementUser)
-                .HasForeignKey(x => x.AnnouncementId);
 
-          
         }
     }
 }

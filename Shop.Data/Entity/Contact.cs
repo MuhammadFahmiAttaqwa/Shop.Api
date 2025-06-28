@@ -19,6 +19,8 @@ namespace Shop.Data.Entity
 
         public string Email { get; set; }
 
+        public string Address { set; get; }
+
         public string Website { get; set; }
 
         public string Other { get; set; }

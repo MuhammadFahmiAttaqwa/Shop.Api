@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Shop.Data.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,17 +10,9 @@ using System.Threading.Tasks;
 namespace Shop.Data.Entity
 {
     [Table("AppRole")]
-    public class AppRole : IdentityRole<Guid>
+    public class AppRole : BaseEntity<Guid>
     {
-        public AppRole() : base()
-        {
-
-        }
-        public AppRole(string name, string description) : base(name)
-        {
-            this.Description = description;
-        }
-        public string Description { get; set; }
+        public string Name { get; set; } = string.Empty;
 
     }
 }

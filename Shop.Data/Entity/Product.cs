@@ -55,6 +55,7 @@ namespace Shop.Data.Entity
         public ProductCategory ProductCategory { get; set; }
 
         public List<ProductTag> ProductTag {  get; set; } = new List<ProductTag>();
+
         public bool IsDeleted { get; set; }
 
         public string CreateBy { get; set; }
