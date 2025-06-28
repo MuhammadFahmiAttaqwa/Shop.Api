@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Common", "Shop.Common\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Application", "Shop.Application\Shop.Application.csproj", "{46001DC2-9256-469D-B176-0EA71A8792F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Auth", "Auth\Shop.Auth.csproj", "{B84326B1-2DFC-4882-A6FB-8A1286F2FB05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Auth", "Shop.Auth\Shop.Auth.csproj", "{B84326B1-2DFC-4882-A6FB-8A1286F2FB05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
